@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluasi Interaktif</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      animation: fadeIn 1s ease-in-out;
+    }
+    input[type="text"] {
+      width: 60px;
+      padding: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="materi.html">Materi</a>
+  <a href="contoh.html">Contoh Soal</a>
+  <a href="latihan.html">Latihan Soal</a>
+  <a href="evaluasi.html">Evaluasi</a>
+  <a href="index.html">Game</a>
+</nav>
+<div class="game-container">
+  <h1>📝 Evaluasi Akhir</h1>
+  <form id="quizFormEval">
+    <div style="text-align:left;">
+      <p>1. (-5) + (-3) = <input type="text" name="q1" /></p>
+      <p>2. 8 + (-10) = <input type="text" name="q2" /></p>
+      <p>3. (-6) + (+6) = <input type="text" name="q3" /></p>
+      <p>4. (+4) + (-2) = <input type="text" name="q4" /></p>
+    </div>
+    <button type="button" onclick="checkAnswersEval()">Periksa Jawaban</button>
+  </form>
+  <div id="resultEval" class="result"></div>
+</div>
+
+<!-- Suara efek -->
+<audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_cfbf1e81b0.mp3" preload="auto"></audio>
+<audio id="wrongSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_ebc76c5aef.mp3" preload="auto"></audio>
+
+<script>
+function checkAnswersEval() {
+  const answers = {
+    q1: "-8",
+    q2: "-2",
+    q3: "0",
+    q4: "2"
+  };
+
+  const correctSound = document.getElementById("correctSound");
+  const wrongSound = document.getElementById("wrongSound");
+
+  let correct = 0;
+  let feedback = "";
+  for (let i = 1; i <= 4; i++) {
+    const userAnswer = document.forms["quizFormEval"]["q" + i].value.trim();
+    if (userAnswer === answers["q" + i]) {
+      feedback += `<p>✅ Soal ${i} Benar!</p>`;
+      correct++;
+      correctSound.play();
+    } else {
+      feedback += `<p>❌ Soal ${i} Salah. Jawaban yang benar: ${answers["q" + i]}</p>`;
+      wrongSound.play();
+    }
+  }
+
+  document.getElementById("resultEval").innerHTML = `<h3>🎯 Hasil Evaluasi:</h3>${feedback}<p>Skor Akhir: ${correct}/4</p>`;
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const navLinks = document.querySelectorAll(".nav a");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = link.getAttribute("href");
+      document.querySelector(target).scrollIntoView({ behavior: "smooth" });
+    });
+  });
+});
+</script>
+</body>
+</html>
