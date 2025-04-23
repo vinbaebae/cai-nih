@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaderboard Evaluasi</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .leaderboard {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px 0;
+    }
+  </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+<nav class="nav">
+  <a href="materi.html">Materi</a>
+  <a href="contoh.html">Contoh Soal</a>
+  <a href="latihan.html">Latihan Soal</a>
+  <a href="evaluasi.html">Evaluasi</a>
+  <a href="leaderboard.html">Leaderboard</a>
+  <a href="index.html">Game</a>
+</nav>
+
+<div class="leaderboard">
+  <h2>🏆 Leaderboard Evaluasi</h2>
+  <input type="text" id="nameInput" placeholder="Nama Anda">
+  <input type="number" id="scoreInput" placeholder="Skor Anda" min="0" max="4">
+  <button onclick="submitScore()">Kirim Skor</button>
+  <table id="scoreTable">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Skor</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+
+<script>
+function getScores() {
+  return JSON.parse(localStorage.getItem("scores") || "[]");
+}
+
+function saveScores(scores) {
+  localStorage.setItem("scores", JSON.stringify(scores));
+}
+
+function submitScore() {
+  const name = document.getElementById("nameInput").value.trim();
+  const score = parseInt(document.getElementById("scoreInput").value);
+  if (name && !isNaN(score)) {
+    const scores = getScores();
+    scores.push({ name, score });
+    scores.sort((a, b) => b.score - a.score);
+    saveScores(scores.slice(0, 10)); // Simpan 10 skor tertinggi
+    renderScores();
+  }
+}
+
+function renderScores() {
+  const scores = getScores();
+  const tbody = document.getElementById("scoreTable").querySelector("tbody");
+  tbody.innerHTML = "";
+  scores.forEach(entry => {
+    const row = `<tr><td>${entry.name}</td><td>${entry.score}</td></tr>`;
+    tbody.innerHTML += row;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", renderScores);
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const navLinks = document.querySelectorAll(".nav a");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = link.getAttribute("href");
+      document.querySelector(target).scrollIntoView({ behavior: "smooth" });
+    });
+  });
+});
+</script>
+</body>
+</html>

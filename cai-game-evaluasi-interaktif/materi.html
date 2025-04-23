@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Materi - Penjumlahan Bilangan Bulat</title>
+  <link rel="stylesheet" href="style.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<nav class="nav">
+  <a href="materi.html">Materi</a>
+  <a href="contoh.html">Contoh Soal</a>
+  <a href="latihan.html">Latihan Soal</a>
+  <a href="evaluasi.html">Evaluasi</a>
+  <a href="index.html">Game</a>
+</nav>
+
+  <div class="game-container">
+    <h1>📘 Materi: Penjumlahan Bilangan Bulat</h1>
+    <p>Penjumlahan bilangan bulat adalah proses menjumlahkan dua bilangan bulat, baik positif maupun negatif.</p>
+    <ul style="text-align:left;">
+      <li><b>Tanda sama:</b> jumlahkan, lalu ikuti tandanya. Contoh: (-3) + (-2) = -5</li>
+      <li><b>Tanda berbeda:</b> kurangkan, lalu ikuti tanda bilangan terbesar. Contoh: (-5) + 7 = 2</li>
+    </ul>
+    <a href="contoh.html">➡️ Lanjut ke Contoh Soal</a>
+  </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const navLinks = document.querySelectorAll(".nav a");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = link.getAttribute("href");
+      document.querySelector(target).scrollIntoView({ behavior: "smooth" });
+    });
+  });
+});
+</script>
+</body>
+</html>
